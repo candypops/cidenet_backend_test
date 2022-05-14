@@ -17,7 +17,8 @@ public class WorkFieldService {
         this.workFieldRepository = workFieldRepository;
     }
 
-    public List<WorkField> getWorkFields(){
-        return workFieldRepository.findAll();
+
+    public List<WorkField> getAllActiveWorkFields(){
+        return workFieldRepository.findAllActiveWorkfields();
     }
 }
