@@ -13,26 +13,26 @@ public class WorkFieldConfig {
     CommandLineRunner commandLineRunner(WorkFieldRepository repository) {
         return args -> {
             WorkField admin = new WorkField(
-                    "Administración"
-            );
+                    "ADMINISTRACION",
+                    "ACTIVE");
             WorkField finance = new WorkField(
-                    "Financiera"
-            );
+                    "FINANCIERA",
+                    "ACTIVE");
             WorkField sales = new WorkField(
-                    "Compras"
-            );
+                    "COMPRAS",
+                    "ACTIVE");
             WorkField infrastructure = new WorkField(
-                    "Infraestructura"
-            );
+                    "INFRAESTRUCTURA",
+                    "ACTIVE");
             WorkField operations = new WorkField(
-                    "Operación"
-            );
+                    "OPERACION",
+                    "ACTIVE");
             WorkField humanResources = new WorkField(
-                    "Talento Humano"
-            );
+                    "TALENTO HUMANO",
+                    "ACTIVE");
             WorkField services = new WorkField(
-                    "Servicios Varios"
-            );
+                    "SERVICIOS VARIOS",
+                    "ACTIVE");
 
             repository.saveAll(
                     List.of(admin, finance, sales, infrastructure, operations, humanResources, services)
