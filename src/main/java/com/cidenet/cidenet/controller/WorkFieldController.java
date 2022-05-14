@@ -7,21 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.stream.Stream;
 
-@RestController
-@RequestMapping(path = "api/v1/get-work-fields")
+
 public class WorkFieldController {
 
-    private final WorkFieldService workFieldService;
-
-    @Autowired
-    public WorkFieldController(WorkFieldService workFieldService) {
-        this.workFieldService = workFieldService;
-    }
-
-    @GetMapping
-    public List<WorkField> getWorkFields() {
-        return workFieldService.getWorkFields();
-    }
 }
