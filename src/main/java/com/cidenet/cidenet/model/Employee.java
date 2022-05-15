@@ -45,6 +45,9 @@ public class Employee {
     @Column(name = "modification_date")
     private Date modificationDate;
 
+    public Employee() {
+    }
+
 
     public Long getId() {
         return id;
@@ -127,4 +130,16 @@ public class Employee {
     }
 
 
+    public Employee(Long id, String email, String status, String firstName, String middleName, String lastName, String secondLastName, String employeeId, Date creationDate, Date modificationDate) {
+        this.id = id;
+        this.email = email;
+        this.status = status;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.secondLastName = secondLastName;
+        this.employeeId = employeeId;
+        this.creationDate = creationDate;
+        this.modificationDate = modificationDate;
+    }
 }
