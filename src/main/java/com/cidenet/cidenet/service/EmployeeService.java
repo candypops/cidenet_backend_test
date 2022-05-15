@@ -10,19 +10,10 @@ import java.util.List;
 
 @Service
 public class EmployeeService {
-    private final CountryService countryService;
-    private final IdentificationTypeService identificationTypeService;
-    private final WorkFieldService workFieldService;
     private final EmployeeRepository employeeRepository;
 
     @Autowired
-    public EmployeeService(CountryService countryService,
-                           IdentificationTypeService identificationTypeService,
-                           WorkFieldService workFieldService,
-                           EmployeeRepository employeeRepository) {
-        this.countryService = countryService;
-        this.identificationTypeService = identificationTypeService;
-        this.workFieldService = workFieldService;
+    public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
@@ -32,6 +23,10 @@ public class EmployeeService {
 
     public void saveNewEmployee(@Valid Employee employee){
         employeeRepository.save(employee);
+    }
+
+    public boolean isEmailDuplicated(String email){
+        return employeeRepository.findByEmail(email) != null;
     }
 
     public Employee editEmployee(Employee employee){
