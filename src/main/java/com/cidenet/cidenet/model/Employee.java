@@ -1,12 +1,15 @@
 package com.cidenet.cidenet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "employee",
 uniqueConstraints = {
-        @UniqueConstraint(name = "employee_id_unique", columnNames = "employee_id" )
+        @UniqueConstraint(name = "employee_id_unique", columnNames = "employee_id" ),
+        @UniqueConstraint(name = "email_unique", columnNames = "email")
 })
 public class Employee {
     @Id
@@ -18,7 +21,8 @@ public class Employee {
     private String email;
 
     @Column(name = "status",nullable = false)
-    private boolean status;
+    @JsonIgnore
+    private String status;
 
     @Column(name = "first_name", nullable = false, length = 20)
     private String firstName;
@@ -58,11 +62,11 @@ public class Employee {
         this.email = email;
     }
 
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
