@@ -1,5 +1,7 @@
 package com.cidenet.cidenet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +15,7 @@ public class IdentificationType {
     private String name;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String status;
 
     public IdentificationType() {
