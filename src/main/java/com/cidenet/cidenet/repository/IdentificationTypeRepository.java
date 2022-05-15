@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IdentificationTypeRepository extends JpaRepository<IdentificationType, Long> {
 
-    @Query("SELECT i FROM IdentityType i WHERE i.status = 'ACTIVE'")
+    @Query("SELECT i FROM IdentificationType i WHERE i.status = 'ACTIVE'")
     List<IdentificationType> findAllActiveIdentificationTypes();
 
 }
