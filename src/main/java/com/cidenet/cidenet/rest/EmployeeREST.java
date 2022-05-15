@@ -1,5 +1,6 @@
 package com.cidenet.cidenet.rest;
 
+import com.cidenet.cidenet.dto.EmployeeRequest;
 import com.cidenet.cidenet.model.Country;
 import com.cidenet.cidenet.model.Employee;
 import com.cidenet.cidenet.model.IdentificationType;
@@ -13,7 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.Date;
 import java.util.List;
@@ -58,13 +59,16 @@ public class EmployeeREST {
 
     @PostMapping
     @RequestMapping(path = "/save-employee")
-    private ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee){
+    private ResponseEntity<Employee> saveEmployee(@RequestBody @Valid EmployeeRequest employee){
+        Employee e = new Employee(0L, "email", "ACTIVE",
+                employee.getFirstName(), employee.getMiddleName(),
+                employee.getLastName(), employee.getSecondLastName(),
+                employee.getEmployeeId(), new Date(), new Date());
         employeeService.something();
+        employeeService.saveNewEmployee(e);
         try {
-            employeeService.saveNewEmployee(employee);
-            return ResponseEntity.created(new URI("api/v1/save-employee"+employee.getEmail())).body(employee);
-        }catch (Exception e){
-
+            return ResponseEntity.created(new URI("api/v1/save-employee"+e.getEmail())).body(e);
+        }catch (Exception ex){
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
