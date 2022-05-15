@@ -11,4 +11,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     @Query("SELECT e FROM Employee e WHERE e.status='ACTIVE'")
     List<Employee> getAllActiveEmployees();
 
+    Employee findByEmail(String email);
+
 }
