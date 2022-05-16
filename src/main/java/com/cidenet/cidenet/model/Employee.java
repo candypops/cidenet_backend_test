@@ -22,7 +22,6 @@ public class Employee {
     private String email;
 
     @Column(name = "status", nullable = false)
-    @JsonIgnore
     private String status;
 
     @Column(name = "first_name", nullable = false, length = 20)
@@ -41,10 +40,10 @@ public class Employee {
     private String identificationNumber;
 
     @Column(name = "creation_date", nullable = false, updatable = false)
-    private Date creationDate;
+    private String creationDate;
 
     @Column(name = "modification_date")
-    private Date modificationDate;
+    private String modificationDate;
 
     @ManyToOne
     @JoinColumn(name = "identification_type_fk", nullable = false)
@@ -127,19 +126,19 @@ public class Employee {
         this.identificationNumber = identificationNumber;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
-    public Date getModificationDate() {
+    public String getModificationDate() {
         return modificationDate;
     }
 
-    public void setModificationDate(Date modificationDate) {
+    public void setModificationDate(String modificationDate) {
         this.modificationDate = modificationDate;
     }
 
@@ -168,8 +167,8 @@ public class Employee {
     }
 
     public Employee(Long id, String email, String status, String firstName, String middleName,
-                    String lastName, String secondLastName, String employeeId, Date creationDate,
-                    Date modificationDate, IdentificationType identificationType,
+                    String lastName, String secondLastName, String employeeId, String creationDate,
+                    String modificationDate, IdentificationType identificationType,
                     Country country, WorkField workField) {
         this.id = id;
         this.email = email;
@@ -186,8 +185,8 @@ public class Employee {
         this.workField = workField;
     }
 
-    public Employee(String email, String status, String firstName, String middleName, String lastName, String secondLastName, String employeeId, Date creationDate,
-                    Date modificationDate, IdentificationType identificationType, Country country, WorkField workField) {
+    public Employee(String email, String status, String firstName, String middleName, String lastName, String secondLastName, String employeeId,
+                    String creationDate, String modificationDate, IdentificationType identificationType, Country country, WorkField workField) {
         this.email = email;
         this.status = status;
         this.firstName = firstName;
@@ -202,8 +201,8 @@ public class Employee {
         this.workField = workField;
     }
 
-    public Employee(String email, String status, String firstName, String middleName, String lastName, String secondLastName, String employeeId, Date creationDate,
-                    Date modificationDate) {
+    public Employee(String email, String status, String firstName, String middleName, String lastName, String secondLastName, String employeeId, String creationDate,
+                    String modificationDate) {
         this.email = email;
         this.status = status;
         this.firstName = firstName;
@@ -214,5 +213,33 @@ public class Employee {
         this.creationDate = creationDate;
         this.modificationDate = modificationDate;
     }
+
+    public Employee(String email, String status, String firstName, String middleName, String lastName,
+                    String secondLastName, String identificationNumber, IdentificationType identificationType,
+                    Country country, WorkField workField) {
+        this.email = email;
+        this.status = status;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.secondLastName = secondLastName;
+        this.identificationNumber = identificationNumber;
+        this.identificationType = identificationType;
+        this.country = country;
+        this.workField = workField;
+    }
+
+    public Employee(String email, String status, String firstName,
+                    String middleName, String lastName, String secondLastName, String identificationNumber) {
+        this.email = email;
+        this.status = status;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.secondLastName = secondLastName;
+        this.identificationNumber = identificationNumber;
+    }
+
+
 
 }
