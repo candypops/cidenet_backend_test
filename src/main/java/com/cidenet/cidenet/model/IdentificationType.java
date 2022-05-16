@@ -3,6 +3,7 @@ package com.cidenet.cidenet.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -18,12 +19,31 @@ public class IdentificationType {
     @JsonIgnore
     private String status;
 
+    @OneToMany(mappedBy = "identificationType")
+    @JsonIgnore
+    private List<Employee> employee;
+
+
     public IdentificationType() {
+    }
+
+    public IdentificationType(String name, String status, List<Employee> employee) {
+        this.name = name;
+        this.status = status;
+        this.employee = employee;
     }
 
     public IdentificationType(String name, String status) {
         this.name = name;
         this.status = status;
+    }
+
+    public List<Employee> getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(List<Employee> employee) {
+        this.employee = employee;
     }
 
     public Long getId() {
