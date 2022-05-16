@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IdentificationTypeService {
@@ -18,5 +19,9 @@ public class IdentificationTypeService {
 
     public List<IdentificationType> getAllActiveIdentificationTypes(){
         return identificationTypeRepository.findAllActiveIdentificationTypes();
+    }
+
+    public Optional<IdentificationType> getIdentificationTypeById(Long id){
+        return  identificationTypeRepository.findById(id);
     }
 }
