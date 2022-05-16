@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WorkFieldService {
@@ -20,5 +21,9 @@ public class WorkFieldService {
 
     public List<WorkField> getAllActiveWorkFields(){
         return workFieldRepository.findAllActiveWorkfields();
+    }
+
+    public Optional<WorkField> getWorkFieldById(long id){
+        return  workFieldRepository.findById(id);
     }
 }
