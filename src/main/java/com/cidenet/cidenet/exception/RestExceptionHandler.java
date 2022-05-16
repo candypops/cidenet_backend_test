@@ -3,6 +3,7 @@ package com.cidenet.cidenet.exception;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ import java.util.Optional;
 @ControllerAdvice
 public class RestExceptionHandler {
 
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    private ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         String error = "JSON mal formateado";
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error));
     }
@@ -31,7 +32,6 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleException(MethodArgumentNotValidException ex) {
-        System.out.println(ex.getBindingResult().getAllErrors().stream().findFirst());
         Optional<ObjectError> firstError = ex.getBindingResult().getAllErrors().stream().findFirst();
         if (firstError.isPresent()) {
             final String firstErrorMessage = firstError.get().getDefaultMessage();
@@ -52,6 +52,29 @@ public class RestExceptionHandler {
     public  ResponseEntity<Object> handleSQLException( SQLException ex){
         String error = "SQLException";
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex));
+    }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public  ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex){
+        String message = "Recurso no encotrado";
+        return buildResponseEntity(new ApiError(HttpStatus.OK, message, ex));
+    }
+
+    @ExceptionHandler(InvalidDataAccessApiUsageException.class)
+    private ResponseEntity<Object> handleInvalidDataAccessApiUsageException(InvalidDataAccessApiUsageException ex) {
+        String error = "JSON mal formateado";
+        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex));
+    }
+
+    @ExceptionHandler(DuplicateIdentificationException.class)
+    public  ResponseEntity<Object> handleDuplicateIdentificationException(DuplicateIdentificationException ex){
+        String message = "Identificacion Repetida";
+        return buildResponseEntity(new ApiError(HttpStatus.OK, message, ex));
+    }
+
+    @ExceptionHandler(UnexpectedErrorException.class)
+    public  ResponseEntity<Object> handleUnexpectedErrorExceptionException (UnexpectedErrorException ex){
+        String message = "Error inesperado";
+        return buildResponseEntity(new ApiError(HttpStatus.OK, message, ex));
     }
 }
