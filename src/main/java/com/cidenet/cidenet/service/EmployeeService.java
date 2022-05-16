@@ -36,9 +36,6 @@ public class EmployeeService {
         return employee;
     }
 
-    public void something() {
-        System.out.println("AAAAAAAAAAAAAAAAAAAA");
-    }
 
     public void generateEmail(Employee employee, int id) {
         String identifier = id > 0 ? "." + id : "";
