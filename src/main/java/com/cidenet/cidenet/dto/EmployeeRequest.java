@@ -9,6 +9,10 @@ import java.util.Locale;
 
 public class EmployeeRequest {
 
+    private int id;
+
+    private StatusEnum status;
+
     @NotEmpty(message = "Primer nombre no puede estar vacio")
     @Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Primer nombre invalido")
     private String firstName;
@@ -60,6 +64,21 @@ public class EmployeeRequest {
     public EmployeeRequest(String firstName, String lastName, String secondLastName, String identificationNumber,
                            int identificationTypeCode, int countryCode, int workFieldCode) {
         this.firstName = firstName;
+        this.lastName = lastName;
+        this.secondLastName = secondLastName;
+        this.identificationNumber = identificationNumber;
+        this.identificationTypeCode = identificationTypeCode;
+        this.countryCode = countryCode;
+        this.workFieldCode = workFieldCode;
+    }
+
+    public EmployeeRequest(int id, StatusEnum status, String firstName, String middleName, String lastName,
+                           String secondLastName, String identificationNumber, int identificationTypeCode,
+                           int countryCode, int workFieldCode) {
+        this.id = id;
+        this.status = status;
+        this.firstName = firstName;
+        this.middleName = middleName;
         this.lastName = lastName;
         this.secondLastName = secondLastName;
         this.identificationNumber = identificationNumber;
@@ -130,5 +149,21 @@ public class EmployeeRequest {
 
     public void setWorkFieldCode(int workFieldCode) {
         this.workFieldCode = workFieldCode;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusEnum status) {
+        this.status = status;
     }
 }
