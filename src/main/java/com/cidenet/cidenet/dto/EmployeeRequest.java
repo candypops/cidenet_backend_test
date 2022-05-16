@@ -1,6 +1,7 @@
 package com.cidenet.cidenet.dto;
 
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -28,10 +29,16 @@ public class EmployeeRequest {
     private String identificationNumber;
 
     @NotNull(message = "Codigo tipo de identificacion no puede estar vacio")
+    @Min(value = 1, message = "Codigo tipo de identificacion no puede estar vacio")
     private  int identificationTypeCode;
 
     @NotNull(message = "Codigo pais no puede estar vacio")
+    @Min(value = 1, message = "Codigo pais no puede estar vacio")
     private  int countryCode;
+
+    @NotNull(message = "Codigo area de trabajo no puede estar vacio")
+    @Min(value = 1, message = "Codigo area de trabajo no puede estar vacio")
+    private int workFieldCode;
 
     public EmployeeRequest(){
 
@@ -39,7 +46,7 @@ public class EmployeeRequest {
 
     public EmployeeRequest(String firstName, String middleName, String lastName, String secondLastName,
                            String identificationNumber, int identificationTypeCode,
-                           int countryCode) {
+                           int countryCode, int workFieldCode) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -47,16 +54,18 @@ public class EmployeeRequest {
         this.identificationNumber = identificationNumber;
         this.identificationTypeCode = identificationTypeCode;
         this.countryCode = countryCode;
+        this.workFieldCode = workFieldCode;
     }
 
     public EmployeeRequest(String firstName, String lastName, String secondLastName, String identificationNumber,
-                           int identificationTypeCode, int countryCode) {
+                           int identificationTypeCode, int countryCode, int workFieldCode) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.secondLastName = secondLastName;
         this.identificationNumber = identificationNumber;
         this.identificationTypeCode = identificationTypeCode;
         this.countryCode = countryCode;
+        this.workFieldCode = workFieldCode;
     }
 
     public String getFirstName() {
@@ -115,4 +124,11 @@ public class EmployeeRequest {
         this.countryCode = countryCode;
     }
 
+    public int getWorkFieldCode() {
+        return workFieldCode;
+    }
+
+    public void setWorkFieldCode(int workFieldCode) {
+        this.workFieldCode = workFieldCode;
+    }
 }
