@@ -2,6 +2,7 @@ package com.cidenet.cidenet.dto;
 
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Locale;
 
@@ -24,25 +25,32 @@ public class EmployeeRequest {
 
     @NotEmpty(message = "Numero de empleado no puede estar vacio")
     @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Numero de empleado invalido")
-    private String employeeId;
+    private String identificationNumber;
+
+    @NotNull(message = "Tipo de identificacion no puede estar vacio")
+    private  int identificationTypeCode;
 
     public EmployeeRequest(){
 
     }
 
-    public EmployeeRequest(String firstName, String middleName, String lastName, String secondLastName, String employeeId) {
+    public EmployeeRequest(String firstName, String middleName, String lastName, String secondLastName,
+                           String identificationNumber, int identificationTypeCode) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.secondLastName = secondLastName;
-        this.employeeId = employeeId;
+        this.identificationNumber = identificationNumber;
+        this.identificationTypeCode = identificationTypeCode;
     }
 
-    public EmployeeRequest(String firstName, String lastName, String secondLastName, String employeeId) {
+    public EmployeeRequest(String firstName, String lastName, String secondLastName, String identificationNumber,
+                           int identificationTypeCode) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.secondLastName = secondLastName;
-        this.employeeId = employeeId;
+        this.identificationNumber = identificationNumber;
+        this.identificationTypeCode = identificationTypeCode;
     }
 
     public String getFirstName() {
@@ -77,11 +85,20 @@ public class EmployeeRequest {
         this.secondLastName = secondLastName.toUpperCase(Locale.ROOT);
     }
 
-    public String getEmployeeId() {
-        return employeeId;
+    public String getIdentificationNumber() {
+        return identificationNumber;
     }
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId.toUpperCase(Locale.ROOT);
+    public void setIdentificationNumber(String identificationNumber) {
+        this.identificationNumber = identificationNumber.toUpperCase(Locale.ROOT);
     }
+
+    public int getIdentificationTypeCode() {
+        return identificationTypeCode;
+    }
+
+    public void setIdentificationTypeCode(int identificationTypeCode) {
+        this.identificationTypeCode = identificationTypeCode;
+    }
+
 }

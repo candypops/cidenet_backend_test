@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1")
@@ -60,11 +61,18 @@ public class EmployeeREST {
     @PostMapping
     @RequestMapping(path = "/save-employee")
     private ResponseEntity<Employee> saveEmployee(@RequestBody @Valid EmployeeRequest employee){
+        System.out.println("getIdentificationTypeCode");
+        System.out.println(employee.getIdentificationTypeCode());
+        Optional<IdentificationType> optionalIdentificationType =
+                identificationTypeService.getIdentificationTypeById((long) employee.getIdentificationTypeCode());
         Employee e = new Employee( "email", "ACTIVE",
                 employee.getFirstName(), employee.getMiddleName(),
                 employee.getLastName(), employee.getSecondLastName(),
-                employee.getEmployeeId(), new Date(), new Date());
-        employeeService.something();
+                employee.getIdentificationNumber(), new Date(), new Date());
+        if(optionalIdentificationType.isPresent()){
+            IdentificationType identificationType = optionalIdentificationType.get();
+            e.setIdentificationType(identificationType);
+        }
         employeeService.saveNewEmployee(e);
         try {
             return ResponseEntity.created(new URI("api/v1/save-employee"+e.getEmail())).body(e);
@@ -72,7 +80,7 @@ public class EmployeeREST {
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
-    
+
     @GetMapping
     @RequestMapping(path = "/employees")
     private ResponseEntity<List<Employee>> getAllEmployees(){
