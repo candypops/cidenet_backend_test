@@ -36,7 +36,6 @@ public class EmployeeService {
     public Employee saveNewEmployee(@Valid Employee employee) throws DuplicateIdentificationException {
         isIdentificationDuplicated(employee);
         employee.setEmail(generateEmail(employee, 0));
-        System.out.println(employee.getEmail());
         return employeeRepository.save(employee);
     }
 
