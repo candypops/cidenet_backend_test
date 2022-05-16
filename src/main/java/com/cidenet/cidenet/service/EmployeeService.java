@@ -72,7 +72,7 @@ public class EmployeeService {
     public String generateEmail(Employee employee, int id) {
         String identifier = id > 0 ? "." + id : "";
         String domain = Objects.equals(employee.getCountry().getName(), "COLOMBIA") ? "@cidenet.com.co" : "@cidenet.com.us";
-        String email = StringUtils.trimAllWhitespace(employee.getLastName()) + "." + employee.getFirstName() +
+        String email = StringUtils.trimAllWhitespace(employee.getLastName()) + "." + employee.getFirstName().trim() +
                 identifier + domain;
         email = email.toUpperCase(Locale.ROOT);
         if (isEmailDuplicated(email.toUpperCase(Locale.ROOT))) {

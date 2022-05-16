@@ -74,7 +74,7 @@ public class EmployeeREST {
         e.setModificationDate(getCurrentDate());
         e = employeeService.saveNewEmployee(e);
         try {
-            return ResponseEntity.created(new URI("api/v1/save-employee" + e.getEmail())).body(e);
+            return ResponseEntity.created(new URI("api/v1/save-employee/" + e.getEmail())).body(e);
         } catch (UnexpectedErrorException ex){
             throw  new UnexpectedErrorException();
         }catch (Exception ex) {
