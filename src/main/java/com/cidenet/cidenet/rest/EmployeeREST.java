@@ -10,6 +10,8 @@ import com.cidenet.cidenet.service.EmployeeService;
 import com.cidenet.cidenet.service.IdentificationTypeService;
 import com.cidenet.cidenet.service.WorkFieldService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -93,5 +95,13 @@ public class EmployeeREST {
     private ResponseEntity<List<Employee>> getAllEmployees(){
         return  ResponseEntity.ok(employeeService.getAllActiveEmployees());
     }
+
+    @GetMapping
+    @RequestMapping(path = "/employees/paged")
+    private ResponseEntity<Page<Employee>> getAllEmployees(Pageable pageable){
+        return  ResponseEntity.ok(employeeService.getAllActiveEmployees(pageable));
+    }
+
+
 
 }

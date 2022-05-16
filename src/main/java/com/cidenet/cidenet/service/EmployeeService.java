@@ -3,6 +3,8 @@ package com.cidenet.cidenet.service;
 import com.cidenet.cidenet.model.Employee;
 import com.cidenet.cidenet.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -22,6 +24,10 @@ public class EmployeeService {
 
     public List<Employee> getAllActiveEmployees() {
         return employeeRepository.getAllActiveEmployees();
+    }
+
+    public Page<Employee> getAllActiveEmployees(Pageable pageable) {
+        return employeeRepository.getAllActiveEmployees(pageable);
     }
 
     public void saveNewEmployee(@Valid Employee employee) {
