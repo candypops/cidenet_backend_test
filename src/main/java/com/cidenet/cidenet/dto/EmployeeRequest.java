@@ -3,18 +3,19 @@ package com.cidenet.cidenet.dto;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import java.util.Locale;
 
 public class EmployeeRequest {
 
     @NotEmpty(message = "Primer nombre no puede estar vacio")
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "Primer nombre invalido")
+    @Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Primer nombre invalido")
     private String firstName;
 
     @Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Segundo nombre invalido")
     private String middleName;
 
     @NotEmpty(message = "Primer apellido no puede estar vacio")
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "Primer apellido invalido")
+    @Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Primer apellido invalido")
     private String lastName;
 
     @NotEmpty(message = "Segundo apellido no puede estar vacio")
@@ -49,7 +50,7 @@ public class EmployeeRequest {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = firstName.toUpperCase(Locale.ROOT);
     }
 
     public String getMiddleName() {
@@ -57,7 +58,7 @@ public class EmployeeRequest {
     }
 
     public void setMiddleName(String middleName) {
-        this.middleName = middleName;
+        this.middleName = middleName.toUpperCase(Locale.ROOT);
     }
 
     public String getLastName() {
@@ -65,7 +66,7 @@ public class EmployeeRequest {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = lastName.toUpperCase(Locale.ROOT);
     }
 
     public String getSecondLastName() {
@@ -73,7 +74,7 @@ public class EmployeeRequest {
     }
 
     public void setSecondLastName(String secondLastName) {
-        this.secondLastName = secondLastName;
+        this.secondLastName = secondLastName.toUpperCase(Locale.ROOT);
     }
 
     public String getEmployeeId() {
@@ -81,6 +82,6 @@ public class EmployeeRequest {
     }
 
     public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+        this.employeeId = employeeId.toUpperCase(Locale.ROOT);
     }
 }

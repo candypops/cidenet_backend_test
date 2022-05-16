@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Locale;
 
 @Entity
 @Table(name = "employee",
@@ -62,7 +63,7 @@ public class Employee {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toUpperCase(Locale.ROOT);
     }
 
     public String getStatus() {
