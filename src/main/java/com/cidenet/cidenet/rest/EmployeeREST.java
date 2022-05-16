@@ -61,8 +61,6 @@ public class EmployeeREST {
     @PostMapping
     @RequestMapping(path = "/save-employee")
     private ResponseEntity<Employee> saveEmployee(@RequestBody @Valid EmployeeRequest employee){
-        System.out.println("getIdentificationTypeCode");
-        System.out.println(employee.getIdentificationTypeCode());
         Optional<IdentificationType> optionalIdentificationType =
                 identificationTypeService.getIdentificationTypeById((long) employee.getIdentificationTypeCode());
         Employee e = new Employee( "email", "ACTIVE",
