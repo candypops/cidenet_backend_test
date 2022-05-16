@@ -142,4 +142,16 @@ public class Employee {
         this.creationDate = creationDate;
         this.modificationDate = modificationDate;
     }
+
+    public Employee(String email, String status, String firstName, String middleName, String lastName, String secondLastName, String employeeId, Date creationDate, Date modificationDate) {
+        this.email = email;
+        this.status = status;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.secondLastName = secondLastName;
+        this.employeeId = employeeId;
+        this.creationDate = creationDate;
+        this.modificationDate = modificationDate;
+    }
 }
