@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class EmployeeService {
@@ -43,7 +44,7 @@ public class EmployeeService {
         String identifier = id > 0 ? "." + id : "";
         String email = StringUtils.trimAllWhitespace(employee.getLastName()) + "." + employee.getFirstName() +
                 identifier + "@cidenet.com";
-        if (isEmailDuplicated(email)) {
+        if (isEmailDuplicated(email.toUpperCase(Locale.ROOT))) {
             generateEmail(employee, id+1);
         }else{
             employee.setEmail(email);
