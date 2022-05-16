@@ -10,7 +10,6 @@ import java.util.Optional;
 @Entity
 @Table(name = "employee",
         uniqueConstraints = {
-                @UniqueConstraint(name = "identification_number_unique", columnNames = "identification_number"),
                 @UniqueConstraint(name = "email_unique", columnNames = "email")
         })
 public class Employee {
@@ -50,6 +49,10 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "identification_type_fk", nullable = false)
     private IdentificationType identificationType;
+
+    @ManyToOne
+    @JoinColumn(name = "country_fk", nullable = false)
+    private Country country;
 
 
     public Employee() {
@@ -144,9 +147,18 @@ public class Employee {
         this.identificationType = identificationType;
     }
 
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
     public Employee(Long id, String email, String status, String firstName, String middleName,
                     String lastName, String secondLastName, String employeeId, Date creationDate,
-                    Date modificationDate, IdentificationType identificationType) {
+                    Date modificationDate, IdentificationType identificationType,
+                    Country country) {
         this.id = id;
         this.email = email;
         this.status = status;
@@ -158,10 +170,11 @@ public class Employee {
         this.creationDate = creationDate;
         this.modificationDate = modificationDate;
         this.identificationType = identificationType;
+        this.country = country;
     }
 
     public Employee(String email, String status, String firstName, String middleName, String lastName, String secondLastName, String employeeId, Date creationDate,
-                    Date modificationDate, IdentificationType identificationType) {
+                    Date modificationDate, IdentificationType identificationType, Country country) {
         this.email = email;
         this.status = status;
         this.firstName = firstName;
@@ -172,6 +185,7 @@ public class Employee {
         this.creationDate = creationDate;
         this.modificationDate = modificationDate;
         this.identificationType = identificationType;
+        this.country = country;
     }
 
     public Employee(String email, String status, String firstName, String middleName, String lastName, String secondLastName, String employeeId, Date creationDate,
