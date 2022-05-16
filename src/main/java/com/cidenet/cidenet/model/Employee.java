@@ -18,7 +18,7 @@ public class Employee {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true, length = 300)
     private String email;
 
     @Column(name = "status", nullable = false)
@@ -53,6 +53,10 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "country_fk", nullable = false)
     private Country country;
+
+    @ManyToOne
+    @JoinColumn(name = "work_field_fk", nullable = false)
+    private WorkField workField;
 
 
     public Employee() {
@@ -155,10 +159,18 @@ public class Employee {
         this.country = country;
     }
 
+    public WorkField getWorkField() {
+        return workField;
+    }
+
+    public void setWorkField(WorkField workField) {
+        this.workField = workField;
+    }
+
     public Employee(Long id, String email, String status, String firstName, String middleName,
                     String lastName, String secondLastName, String employeeId, Date creationDate,
                     Date modificationDate, IdentificationType identificationType,
-                    Country country) {
+                    Country country, WorkField workField) {
         this.id = id;
         this.email = email;
         this.status = status;
@@ -171,10 +183,11 @@ public class Employee {
         this.modificationDate = modificationDate;
         this.identificationType = identificationType;
         this.country = country;
+        this.workField = workField;
     }
 
     public Employee(String email, String status, String firstName, String middleName, String lastName, String secondLastName, String employeeId, Date creationDate,
-                    Date modificationDate, IdentificationType identificationType, Country country) {
+                    Date modificationDate, IdentificationType identificationType, Country country, WorkField workField) {
         this.email = email;
         this.status = status;
         this.firstName = firstName;
@@ -186,6 +199,7 @@ public class Employee {
         this.modificationDate = modificationDate;
         this.identificationType = identificationType;
         this.country = country;
+        this.workField = workField;
     }
 
     public Employee(String email, String status, String firstName, String middleName, String lastName, String secondLastName, String employeeId, Date creationDate,

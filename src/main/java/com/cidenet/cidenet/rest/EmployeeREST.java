@@ -65,15 +65,20 @@ public class EmployeeREST {
                 identificationTypeService.getIdentificationTypeById((long) employee.getIdentificationTypeCode());
         Optional<Country> optionalCountry =
                 countryService.getCountryById((long) employee.getCountryCode());
+        Optional<WorkField> optionalWorkField =
+                workFieldService.getWorkFieldById((long) employee.getWorkFieldCode());
         Employee e = new Employee( "email", "ACTIVE",
                 employee.getFirstName(), employee.getMiddleName(),
                 employee.getLastName(), employee.getSecondLastName(),
                 employee.getIdentificationNumber(), new Date(), new Date());
-        if(optionalIdentificationType.isPresent() && optionalCountry.isPresent()){
+        if(optionalIdentificationType.isPresent() && optionalCountry.isPresent() && optionalWorkField.isPresent()){
             IdentificationType identificationType = optionalIdentificationType.get();
             Country country = optionalCountry.get();
+            WorkField workField = optionalWorkField.get();
             e.setCountry(country);
             e.setIdentificationType(identificationType);
+            e.setWorkField(workField);
+
         }
         employeeService.saveNewEmployee(e);
         try {
