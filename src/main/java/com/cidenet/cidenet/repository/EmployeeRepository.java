@@ -1,6 +1,7 @@
 package com.cidenet.cidenet.repository;
 
 import com.cidenet.cidenet.model.Employee;
+import com.cidenet.cidenet.model.IdentificationType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,6 +20,11 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Page<Employee> getAllActiveEmployees(Pageable pageable);
 
     boolean existsByEmail(String email);
+
+    boolean existsByidentificationType(IdentificationType id);
+
+    boolean existsByidentificationNumber(String id);
+
 
 
 }
