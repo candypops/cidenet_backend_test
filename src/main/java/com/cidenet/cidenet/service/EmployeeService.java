@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 @Service
 public class EmployeeService {
@@ -39,8 +40,9 @@ public class EmployeeService {
 
     public void generateEmail(Employee employee, int id) {
         String identifier = id > 0 ? "." + id : "";
+        String domain = Objects.equals(employee.getCountry().getName(), "COLOMBIA") ? "@cidenet.com.co" : "@cidenet.com.us";
         String email = StringUtils.trimAllWhitespace(employee.getLastName()) + "." + employee.getFirstName() +
-                identifier + "@cidenet.com";
+                identifier + domain;
         if (isEmailDuplicated(email.toUpperCase(Locale.ROOT))) {
             generateEmail(employee, id+1);
         }else{
