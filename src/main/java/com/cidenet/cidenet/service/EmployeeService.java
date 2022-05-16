@@ -1,5 +1,7 @@
 package com.cidenet.cidenet.service;
 
+import com.cidenet.cidenet.exception.DuplicateIdentificationException;
+import com.cidenet.cidenet.exception.ResourceNotFoundException;
 import com.cidenet.cidenet.model.Employee;
 import com.cidenet.cidenet.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,30 +32,54 @@ public class EmployeeService {
         return employeeRepository.getAllActiveEmployees(pageable);
     }
 
-    public void saveNewEmployee(@Valid Employee employee) {
-        generateEmail(employee, 0);
-        employeeRepository.save(employee);
+
+    public Employee saveNewEmployee(@Valid Employee employee) throws DuplicateIdentificationException {
+        isIdentificationDuplicated(employee);
+        employee.setEmail(generateEmail(employee, 0));
+        System.out.println(employee.getEmail());
+        return employeeRepository.save(employee);
     }
 
-    public boolean isEmailDuplicated(String email) {
-        return employeeRepository.findByEmail(email) != null;
+    private boolean isEmailDuplicated(String email) {
+        return employeeRepository.existsByEmail(email);
     }
 
-    public Employee editEmployee(Employee employee) {
-        return employee;
+    private void isIdentificationDuplicated(Employee employee) throws DuplicateIdentificationException {
+        if (employeeRepository.existsByidentificationNumber(employee.getIdentificationNumber())
+                && employeeRepository.existsByidentificationType(employee.getIdentificationType())) {
+            throw new DuplicateIdentificationException();
+        }
     }
 
+    public Employee editEmployee(Employee employee) throws ResourceNotFoundException, DuplicateIdentificationException {
+        Employee e = employeeRepository.findById(employee.getId()).orElseThrow(ResourceNotFoundException::new);
+        if (!e.getIdentificationNumber().equalsIgnoreCase(employee.getIdentificationNumber()) ||
+                !e.getIdentificationType().getId().equals(employee.getIdentificationType().getId())) {
+            isIdentificationDuplicated(employee);
+        }
+        employee.setEmail(e.getEmail());
+        employee.setCreationDate(e.getCreationDate());
+        if (!e.getFirstName().equalsIgnoreCase(employee.getFirstName()) ||
+                !e.getMiddleName().equalsIgnoreCase(employee.getMiddleName()) ||
+                !e.getLastName().equalsIgnoreCase(employee.getLastName()) ||
+                !e.getSecondLastName().equalsIgnoreCase(employee.getSecondLastName()) ||
+                !e.getCountry().equals(employee.getCountry())
+        ) {
+            employee.setEmail(generateEmail(employee, 0));
+        }
+        return employeeRepository.save(employee);
+    }
 
-    public void generateEmail(Employee employee, int id) {
+    public String generateEmail(Employee employee, int id) {
         String identifier = id > 0 ? "." + id : "";
         String domain = Objects.equals(employee.getCountry().getName(), "COLOMBIA") ? "@cidenet.com.co" : "@cidenet.com.us";
         String email = StringUtils.trimAllWhitespace(employee.getLastName()) + "." + employee.getFirstName() +
                 identifier + domain;
+        email = email.toUpperCase(Locale.ROOT);
         if (isEmailDuplicated(email.toUpperCase(Locale.ROOT))) {
-            generateEmail(employee, id+1);
-        }else{
-            employee.setEmail(email);
+            email = generateEmail(employee, id + 1);
         }
+        return email;
     }
 
 
