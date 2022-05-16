@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "44ba8852-dccd-4557-93b0-08503640502e",
+		"name": "misc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/get-work-fields",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/get-work-fields",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"get-work-fields"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/save-employee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Juan\",\r\n    \"middleName\": \"Carlos\",\r\n    \"lastName\": \"Perez\",\r\n    \"secondLastName\": \"Montoya\",\r\n    \"identificationNumber\": \"100\",\r\n    \"identificationTypeCode\": 1,\r\n    \"countryCode\": 10,\r\n    \"workFieldCode\":2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/save-employee",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"save-employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/update-employee",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"firstName\": \"MariaJoseee\",\r\n    \"middleName\": \"DE los angeles\",\r\n    \"lastName\": \"DE Perez\",\r\n    \"secondLastName\": \"casa\",\r\n    \"identificationNumber\": \"11\",\r\n    \"identificationTypeCode\": 1,\r\n    \"countryCode\": 2,\r\n    \"workFieldCode\": 2,\r\n    \"status\": \"INACTIVE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/update-employee",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"update-employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/employees/paged",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/employees/paged?page=0&size=10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"employees",
+						"paged"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/get-countries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/get-countries",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"get-countries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-identification-types",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/get-identification-types",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"get-identification-types"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
