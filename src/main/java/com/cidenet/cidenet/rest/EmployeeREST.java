@@ -60,7 +60,7 @@ public class EmployeeREST {
     @PostMapping
     @RequestMapping(path = "/save-employee")
     private ResponseEntity<Employee> saveEmployee(@RequestBody @Valid EmployeeRequest employee){
-        Employee e = new Employee(0L, "email", "ACTIVE",
+        Employee e = new Employee( "email", "ACTIVE",
                 employee.getFirstName(), employee.getMiddleName(),
                 employee.getLastName(), employee.getSecondLastName(),
                 employee.getEmployeeId(), new Date(), new Date());
