@@ -27,30 +27,36 @@ public class EmployeeRequest {
     @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Numero de empleado invalido")
     private String identificationNumber;
 
-    @NotNull(message = "Tipo de identificacion no puede estar vacio")
+    @NotNull(message = "Codigo tipo de identificacion no puede estar vacio")
     private  int identificationTypeCode;
+
+    @NotNull(message = "Codigo pais no puede estar vacio")
+    private  int countryCode;
 
     public EmployeeRequest(){
 
     }
 
     public EmployeeRequest(String firstName, String middleName, String lastName, String secondLastName,
-                           String identificationNumber, int identificationTypeCode) {
+                           String identificationNumber, int identificationTypeCode,
+                           int countryCode) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.secondLastName = secondLastName;
         this.identificationNumber = identificationNumber;
         this.identificationTypeCode = identificationTypeCode;
+        this.countryCode = countryCode;
     }
 
     public EmployeeRequest(String firstName, String lastName, String secondLastName, String identificationNumber,
-                           int identificationTypeCode) {
+                           int identificationTypeCode, int countryCode) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.secondLastName = secondLastName;
         this.identificationNumber = identificationNumber;
         this.identificationTypeCode = identificationTypeCode;
+        this.countryCode = countryCode;
     }
 
     public String getFirstName() {
@@ -99,6 +105,14 @@ public class EmployeeRequest {
 
     public void setIdentificationTypeCode(int identificationTypeCode) {
         this.identificationTypeCode = identificationTypeCode;
+    }
+
+    public int getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(int countryCode) {
+        this.countryCode = countryCode;
     }
 
 }

@@ -63,12 +63,16 @@ public class EmployeeREST {
     private ResponseEntity<Employee> saveEmployee(@RequestBody @Valid EmployeeRequest employee){
         Optional<IdentificationType> optionalIdentificationType =
                 identificationTypeService.getIdentificationTypeById((long) employee.getIdentificationTypeCode());
+        Optional<Country> optionalCountry =
+                countryService.getCountryById((long) employee.getCountryCode());
         Employee e = new Employee( "email", "ACTIVE",
                 employee.getFirstName(), employee.getMiddleName(),
                 employee.getLastName(), employee.getSecondLastName(),
                 employee.getIdentificationNumber(), new Date(), new Date());
-        if(optionalIdentificationType.isPresent()){
+        if(optionalIdentificationType.isPresent() && optionalCountry.isPresent()){
             IdentificationType identificationType = optionalIdentificationType.get();
+            Country country = optionalCountry.get();
+            e.setCountry(country);
             e.setIdentificationType(identificationType);
         }
         employeeService.saveNewEmployee(e);
