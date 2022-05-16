@@ -23,7 +23,8 @@ public class RestExceptionHandler {
 
     private ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         String error = "JSON mal formateado";
-        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error));
+        int code = 1;
+        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, code));
     }
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
@@ -33,48 +34,55 @@ public class RestExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleException(MethodArgumentNotValidException ex) {
         Optional<ObjectError> firstError = ex.getBindingResult().getAllErrors().stream().findFirst();
+        int code = 1;
         if (firstError.isPresent()) {
             final String firstErrorMessage = firstError.get().getDefaultMessage();
-            return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, firstErrorMessage));
+            return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, firstErrorMessage, code));
         }
         String error = "MethodArgumentNotValidException";
-        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error));
+        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, code));
 
     }
 
     @ExceptionHandler(JsonMappingException.class)
     public ResponseEntity<Object> handleJsonMappingException(JsonMappingException ex) {
         String error = "JsonMappingException";
-        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex));
+        int code = 2;
+        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex, code));
     }
 
     @ExceptionHandler(SQLException.class)
-    public  ResponseEntity<Object> handleSQLException( SQLException ex){
+    public ResponseEntity<Object> handleSQLException(SQLException ex) {
         String error = "SQLException";
-        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex));
+        int code = 3;
+        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex, code));
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public  ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex){
+    public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {
         String message = "Recurso no encotrado";
-        return buildResponseEntity(new ApiError(HttpStatus.OK, message, ex));
+        int code = 4;
+        return buildResponseEntity(new ApiError(HttpStatus.OK, message, ex, code));
     }
 
     @ExceptionHandler(InvalidDataAccessApiUsageException.class)
     private ResponseEntity<Object> handleInvalidDataAccessApiUsageException(InvalidDataAccessApiUsageException ex) {
         String error = "JSON mal formateado";
-        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex));
+        int code = 2;
+        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex, code));
     }
 
     @ExceptionHandler(DuplicateIdentificationException.class)
-    public  ResponseEntity<Object> handleDuplicateIdentificationException(DuplicateIdentificationException ex){
+    public ResponseEntity<Object> handleDuplicateIdentificationException(DuplicateIdentificationException ex) {
         String message = "Identificacion Repetida";
-        return buildResponseEntity(new ApiError(HttpStatus.OK, message, ex));
+        int code = 5;
+        return buildResponseEntity(new ApiError(HttpStatus.OK, message, ex, code));
     }
 
     @ExceptionHandler(UnexpectedErrorException.class)
-    public  ResponseEntity<Object> handleUnexpectedErrorExceptionException (UnexpectedErrorException ex){
+    public ResponseEntity<Object> handleUnexpectedErrorExceptionException(UnexpectedErrorException ex) {
         String message = "Error inesperado";
-        return buildResponseEntity(new ApiError(HttpStatus.OK, message, ex));
+        int code = 999;
+        return buildResponseEntity(new ApiError(HttpStatus.OK, message, code));
     }
 }
